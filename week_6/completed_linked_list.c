@@ -66,6 +66,52 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
   return pNew;
 }
 
+void printGPA(LinkedList list)
+{
+  NodeLL* pCurrentNode = list->pHead;
+  printf("%s\t%s\n", "ABC123", "GPA");
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    printf(
+      "%s\t%.2lf\n", 
+      pCurrentNode->student.szAbc123Id,
+      pCurrentNode->student.dGPA
+    );
+  }
+}
+
+double highGPA(LinkedList list)
+{
+  NodeLL* pCurrentNode = list->pHead;
+  double dHighGPA = 0.0;
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    double dCurrentGPA = pCurrentNode->student.dGPA;
+    if(dCurrentGPA > dHighGPA) {
+      dHighGPA = dCurrentGPA;
+    }
+  }
+  return dHighGPA;
+}
+
+NodeLL* last(LinkedList list)
+{
+  NodeLL *pCurrentNode = list->pHead;
+  while(pCurrentNode->pNext != NULL) {
+    pCurrentNode = pCurrentNode->pNext;
+  }
+  return pCurrentNode;
+}
+
+NodeLL* findStudent(LinkedList list, char *szNeedle)
+{
+  NodeLL *pCurrentNode = list->pHead;
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    if(!strcmp(pCurrentNode->student.szAbc123Id, szNeedle)) {
+      return pCurrentNode;
+    }
+  }
+  return NULL;
+}
+
 // 1. Show code for the function printGPA which is passed a LinkedList and prints the abc123Id and GPA for each student in the linked list.   Also, include column headings.
 //
 // 2. Show code for the function highGPA which returns the highest GPA in the linked list.
@@ -88,4 +134,16 @@ int main()
   insertOrderedLL(list, student3);
   insertOrderedLL(list, student4);
   insertOrderedLL(list, student5);
+
+  printGPA(list);
+  printf("\n");
+  printf("%.2lf\n", highGPA(list));
+  printf("\n");
+
+  NodeLL *pLast = last(list);
+  printf("%s\n", pLast->student.szAbc123Id);
+  printf("\n");
+
+  NodeLL *pFoundStudent = findStudent(list, "ccc111");
+  printf("%.2lf\n", pFoundStudent->student.dGPA);
 }
