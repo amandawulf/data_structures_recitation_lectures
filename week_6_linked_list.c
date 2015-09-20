@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define LL_NULL -1
 
@@ -55,7 +56,7 @@ NodeLL *allocateNode(LinkedList list, Student value)
   pNew = (NodeLL *)malloc(sizeof(NodeLL));
   //if (pNew == NULL)
   //  ErrExit(ERR_ALGORITHM, "No available memory for linked list");
-  pNew->student.szAbc123Id = value.szAbc123Id;
+  strcpy(pNew->student.szAbc123Id, value.szAbc123Id);
   pNew->student.dGPA = value.dGPA;
   pNew->pNext = NULL;
   return pNew;
@@ -65,7 +66,7 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
 {
   NodeLL *pNew, *pFind, *pPrecedes;
   // see if it already exists
-  pFind = searchLL(list, value.student.szAbc123Id, &pPrecedes);
+  pFind = searchLL(list, value.szAbc123Id, &pPrecedes);
   if (pFind != NULL)
     return pFind;
   
@@ -86,12 +87,48 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
 
 void printGPA(LinkedList list)
 {
-  NodeLL* currentNode = list->pHead;
-  while((currentNode = currentNode->pNext) != NULL) {
-    printf("%s\t%lf\n", currentNode->student.szAbc123Id, currentNode->student.dGPA);
+  NodeLL* pCurrentNode = list->pHead;
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    printf(
+      "%s\t%.2lf\n", 
+      pCurrentNode->student.szAbc123Id,
+      pCurrentNode->student.dGPA
+    );
   }
 }
 
+double highGPA(LinkedList list)
+{
+  NodeLL* pCurrentNode = list->pHead;
+  double dHighGPA = 0.0;
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    double dCurrentGPA = pCurrentNode->student.dGPA;
+    if(dCurrentGPA > dHighGPA) {
+      dHighGPA = dCurrentGPA;
+    }
+  }
+  return dHighGPA;
+}
+
+NodeLL* last(LinkedList list)
+{
+  NodeLL *pCurrentNode = list->pHead;
+  while(pCurrentNode->pNext != NULL) {
+    pCurrentNode = pCurrentNode->pNext;
+  }
+  return pCurrentNode;
+}
+
+NodeLL* findStudent(LinkedList list, char *szNeedle)
+{
+  NodeLL *pCurrentNode = list->pHead;
+  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+    if(!strcmp(pCurrentNode->student.szAbc123Id, szNeedle)) {
+      return pCurrentNode;
+    }
+  }
+  return NULL;
+}
 
 // 1. Show code for the function printGPA which is passed a LinkedList and prints the abc123Id and GPA for each student in the linked list.   Also, include column headings.
 //
@@ -117,4 +154,14 @@ int main()
   insertOrderedLL(list, student5);
 
   printGPA(list);
+  printf("\n");
+  printf("%.2lf\n", highGPA(list));
+  printf("\n");
+
+  NodeLL *pLast = last(list);
+  printf("%s\n", pLast->student.szAbc123Id);
+  printf("\n");
+
+  NodeLL *pFoundStudent = findStudent(list, "ccc111");
+  printf("%.2lf\n", pFoundStudent->student.dGPA);
 }
