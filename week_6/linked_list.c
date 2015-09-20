@@ -1,26 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define LL_NULL -1
-
-typedef struct
-{
-  char szAbc123Id[7];
-  double dGPA;
-} Student;
-
-typedef struct NodeLL
-{
-  Student student;
-  struct NodeLL *pNext;
-} NodeLL;
-
-typedef struct
-{
-  NodeLL *pHead;
-} LinkedListImp;
-typedef LinkedListImp *LinkedList;
+#include "linked_list.h"
 
 LinkedList newLinkedList ()
 {
@@ -88,6 +69,7 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
 void printGPA(LinkedList list)
 {
   NodeLL* pCurrentNode = list->pHead;
+  printf("%s\t%s\n", "ABC123", "GPA");
   while((pCurrentNode = pCurrentNode->pNext) != NULL) {
     printf(
       "%s\t%.2lf\n", 
