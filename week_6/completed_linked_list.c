@@ -70,12 +70,13 @@ void printGPA(LinkedList list)
 {
   NodeLL* pCurrentNode = list->pHead;
   printf("%s\t%s\n", "ABC123", "GPA");
-  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+  while(pCurrentNode != NULL) {
     printf(
       "%s\t%.2lf\n", 
       pCurrentNode->student.szAbc123Id,
       pCurrentNode->student.dGPA
     );
+    pCurrentNode = pCurrentNode->pNext;
   }
 }
 
@@ -83,11 +84,12 @@ double highGPA(LinkedList list)
 {
   NodeLL* pCurrentNode = list->pHead;
   double dHighGPA = 0.0;
-  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+  while(pCurrentNode != NULL) {
     double dCurrentGPA = pCurrentNode->student.dGPA;
     if(dCurrentGPA > dHighGPA) {
       dHighGPA = dCurrentGPA;
     }
+    pCurrentNode = pCurrentNode->pNext;
   }
   return dHighGPA;
 }
