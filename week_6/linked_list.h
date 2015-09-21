@@ -1,5 +1,3 @@
-#define LL_NULL -1
-
 typedef struct
 {
   char szAbc123Id[7];

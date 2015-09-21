@@ -68,11 +68,12 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
 
 void printGPA(LinkedList list)
 {
-  NodeLL* pCurrentNode = list->pHead;
   printf("%s\t%s\n", "ABC123", "GPA");
+
+  NodeLL *pCurrentNode = list->pHead;
   while(pCurrentNode != NULL) {
     printf(
-      "%s\t%.2lf\n", 
+      "%s\t%.2lf\n",
       pCurrentNode->student.szAbc123Id,
       pCurrentNode->student.dGPA
     );
@@ -82,21 +83,23 @@ void printGPA(LinkedList list)
 
 double highGPA(LinkedList list)
 {
-  NodeLL* pCurrentNode = list->pHead;
-  double dHighGPA = 0.0;
+  NodeLL *pCurrentNode = list->pHead;
+  double dHighestGPA = 0.0;
+
   while(pCurrentNode != NULL) {
     double dCurrentGPA = pCurrentNode->student.dGPA;
-    if(dCurrentGPA > dHighGPA) {
-      dHighGPA = dCurrentGPA;
+    if(dCurrentGPA > dHighestGPA) {
+      dHighestGPA = dCurrentGPA;
     }
     pCurrentNode = pCurrentNode->pNext;
   }
-  return dHighGPA;
+  return dHighestGPA;
 }
 
 NodeLL* last(LinkedList list)
 {
   NodeLL *pCurrentNode = list->pHead;
+  
   while(pCurrentNode->pNext != NULL) {
     pCurrentNode = pCurrentNode->pNext;
   }
@@ -106,10 +109,12 @@ NodeLL* last(LinkedList list)
 NodeLL* findStudent(LinkedList list, char *szNeedle)
 {
   NodeLL *pCurrentNode = list->pHead;
-  while((pCurrentNode = pCurrentNode->pNext) != NULL) {
+
+  while(pCurrentNode != NULL) {
     if(!strcmp(pCurrentNode->student.szAbc123Id, szNeedle)) {
       return pCurrentNode;
     }
+    pCurrentNode = pCurrentNode->pNext;
   }
   return NULL;
 }
@@ -139,12 +144,12 @@ int main()
 
   printGPA(list);
   printf("\n");
-  printf("%.2lf\n", highGPA(list));
-  printf("\n");
 
-  NodeLL *pLast = last(list);
-  printf("%s\n", pLast->student.szAbc123Id);
-  printf("\n");
+  double dHighestGPA = highGPA(list);
+  printf("%.2lf\n", dHighestGPA);
+
+  NodeLL *pLastNode = last(list);
+  printf("%s\n", pLastNode->student.szAbc123Id);
 
   NodeLL *pFoundStudent = findStudent(list, "ccc111");
   printf("%.2lf\n", pFoundStudent->student.dGPA);
