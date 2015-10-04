@@ -70,53 +70,93 @@ void printGPA(LinkedList list)
 {
   printf("%s\t%s\n", "ABC123", "GPA");
 
-  NodeLL *pCurrentNode = list->pHead;
-  while(pCurrentNode != NULL) {
+  // Loop to traverse the linked list and print the ABC123 and GPA of each student.
+  // Alternate method (that we went over in recitation) would be to use a while loop
+  // NodeLL *pCurrentNode = list->pHead;
+  // while(pCurrentNode != NULL) {
+  //   // ...
+  //   pCurrentNode = pCurrentNode->pNext;
+  // }
+  NodeLL *pCurrentNode;
+  for(pCurrentNode = list->pHead; pCurrentNode != NULL; pCurrentNode = pCurrentNode->pNext) {
     printf(
       "%s\t%.2lf\n",
       pCurrentNode->student.szAbc123Id,
       pCurrentNode->student.dGPA
     );
-    pCurrentNode = pCurrentNode->pNext;
   }
 }
 
 double highGPA(LinkedList list)
 {
-  NodeLL *pCurrentNode = list->pHead;
   double dHighestGPA = 0.0;
 
-  while(pCurrentNode != NULL) {
+  // Loop to traverse the linked list and compare the GPA to the highest GPA
+  // we've seen so far.
+  //
+  // Alternate method (that we went over in recitation) would be to use a while loop
+  // NodeLL *pCurrentNode = list->pHead;
+  // while(pCurrentNode != NULL) {
+  //   // ...
+  //   pCurrentNode = pCurrentNode->pNext;
+  // }
+  NodeLL *pCurrentNode;
+  for(pCurrentNode = list->pHead; pCurrentNode != NULL; pCurrentNode = pCurrentNode->pNext) {
     double dCurrentGPA = pCurrentNode->student.dGPA;
+
+    // Compare the current student's GPA to the highest GPA we've seen so far.
+    // If the current GPA is higher than the highest GPA we've seen so far, set
+    // the highest GPA so far to the current GPA.
     if(dCurrentGPA > dHighestGPA) {
       dHighestGPA = dCurrentGPA;
     }
-    pCurrentNode = pCurrentNode->pNext;
   }
   return dHighestGPA;
 }
 
 NodeLL* last(LinkedList list)
 {
-  NodeLL *pCurrentNode = list->pHead;
-  
-  while(pCurrentNode->pNext != NULL) {
-    pCurrentNode = pCurrentNode->pNext;
+  NodeLL *pCurrentNode;
+
+  // Loop to traverse the linked list until we reach the last node
+  // Do nothing within the loop body.
+  //
+  // Alternate method (that we went over in recitation) would be to use a while loop
+  // NodeLL *pCurrentNode = list->pHead;
+  // while(pCurrentNode->pNext != NULL) {
+  //   pCurrentNode = pCurrentNode->pNext;
+  // }
+  // return pCurrentNode;
+  for(pCurrentNode = list->pHead; pCurrentNode->pNext != NULL; pCurrentNode = pCurrentNode->pNext) {
+    ;
   }
   return pCurrentNode;
 }
 
 NodeLL* findStudent(LinkedList list, char *szNeedle)
 {
-  NodeLL *pCurrentNode = list->pHead;
+  NodeLL *pCurrentNode;
 
-  while(pCurrentNode != NULL) {
+  // Loop to traverse the linked list until we find the student whose ABC123
+  // matches szNeedle, then return the node that that student belongs to.
+  //
+  // Alternate method (that we went over in recitation) would be to use a while loop
+  // NodeLL *pCurrentNode = list->pHead;
+  // while(pCurrentNode != NULL) {
+  //   // ...
+  //   pCurrentNode = pCurrentNode->pNext;
+  // }
+  for(pCurrentNode = list->pHead; pCurrentNode != NULL; pCurrentNode = pCurrentNode->pNext) {
+
+    // Compare the student's ID to szNeedle. If they're equal, return the current node.
+    //
+    // If strcmp returns 0, then the student's ID is the same string as szNeedle.
+    // In C, the expression iVariable == 0 is equivalent to the expression !iVariable because
+    // C treats 0 as false, so I used a ! before strcmp as shorthand for strcmp(...) == 0.
     if(!strcmp(pCurrentNode->student.szAbc123Id, szNeedle)) {
       return pCurrentNode;
     }
-    pCurrentNode = pCurrentNode->pNext;
   }
-  return NULL;
 }
 
 // 1. Show code for the function printGPA which is passed a LinkedList and prints the abc123Id and GPA for each student in the linked list.   Also, include column headings.
@@ -146,11 +186,11 @@ int main()
   printf("\n");
 
   double dHighestGPA = highGPA(list);
-  printf("%.2lf\n", dHighestGPA);
+  printf("%.2lf\n\n", dHighestGPA);
 
   NodeLL *pLastNode = last(list);
-  printf("%s\n", pLastNode->student.szAbc123Id);
+  printf("%s\n\n", pLastNode->student.szAbc123Id);
 
   NodeLL *pFoundStudent = findStudent(list, "ccc111");
-  printf("%.2lf\n", pFoundStudent->student.dGPA);
+  printf("%.2lf\n\n", pFoundStudent->student.dGPA);
 }
