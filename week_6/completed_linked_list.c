@@ -151,7 +151,7 @@ NodeLL* findStudent(LinkedList list, char *szNeedle)
     // Compare the student's ID to szNeedle. If they're equal, return the current node.
     //
     // If strcmp returns 0, then the student's ID is the same string as szNeedle.
-    // In C, the expression iVariable == 0 is equivalent to the expression !iVariable because
+    // In C, the expression bVariable == 0 is equivalent to the expression !bVariable because
     // C treats 0 as false, so I used a ! before strcmp as shorthand for strcmp(...) == 0.
     if(!strcmp(pCurrentNode->student.szAbc123Id, szNeedle)) {
       return pCurrentNode;
