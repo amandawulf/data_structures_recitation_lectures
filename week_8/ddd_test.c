@@ -2,8 +2,8 @@
 
 int main()
 {
-  int i;
-  for(i = 0; i < 10; i++) {
-    printf("%d\n", i);
+  char szInput[6];
+  while(fgets(szInput, 6, stdin) != NULL) {
+    printf("%s", szInput);
   }
 }
