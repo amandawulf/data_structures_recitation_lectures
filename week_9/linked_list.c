@@ -68,13 +68,10 @@ NodeLL *insertOrderedLL(LinkedList list, Student value)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// 1. Show code for the function printGPA which is passed a LinkedList and prints the abc123Id and GPA for each student in the linked list.   Also, include column headings.
+// 1. Show recursive code for the function getHighGPA(NodeLL *p) which returns the highest GPA in the list.  Initially, it is passed list->pHead.  If the list is empty, it should return 0.0.  Note:  you will probably need a local variable, double dHigh.
 //
-// 2. Show code for the function highGPA which returns the highest GPA in the linked list.
-//
-// 3. Show code for the function last(LinkedList list) which returns a pointer to the last node in the list.
-//
-// 4. Show code for the function findStudent which is passed a linked list and a student ABC 123 ID.  It returns a pointer to the node containing the specified student.  If not found, return NULL.
+// 2. Show recursive code for the function last(NodeLL *p) which is initially passed list->pHead and returns a pointer to the last node in the list.  If empty, it returns NULL.
+
 int main()
 {
   LinkedList list = newLinkedList(); 
